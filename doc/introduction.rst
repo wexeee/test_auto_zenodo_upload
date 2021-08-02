@@ -9,4 +9,4 @@ Stages of pipeline:
 3. PDF is built from markdown version
 4. Upload to test Zenodo.
 
-These pages also get built as a GitHub page.
+These documentation pages also get built as a GitHub page.
