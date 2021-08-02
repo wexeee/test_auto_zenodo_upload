@@ -7,14 +7,13 @@ pushd $tmp > /dev/null
 thisdir=`pwd`
 popd > /dev/null
 
-name=$1
-zenodo_url=$2
-zenodo_tkn=$3
-zenodo_depid=$4
+zenodo_url=$1
+zenodo_tkn=$2
+zenodo_depid=$3
 
-version=`python setup.py -V`
-upfile=`pwd`/dist/"$name"-"$version".tar.gz
-metafile=`pwd`/.ci/zenodo_meta.json.jinja2
+version=`git tag`
+upfile=`pwd`/my_built_document*.pdf
+metafile=`pwd`/.github/workflows/zenodo_meta.json.jinja2
 date=`date +"%Y-%m-%d"`
 
 pip install --retries 10 requests jinja2
