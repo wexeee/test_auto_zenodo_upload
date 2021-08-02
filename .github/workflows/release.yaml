@@ -46,4 +46,6 @@ jobs:
           ZENODO_URL: ${{ secrets.ZENODO_URL }}
           ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
           ZENODO_DEPOSIT_ID: ${{ secrets.ZENODO_DEPOSIT_ID }}
-        run: bash ./.github/workflows/zenodo_deposit.sh "$ZENODO_URL" "$ZENODO_TOKEN" "$ZENODO_DEPOSIT_ID"
+        run: |
+          pwd
+          bash ./.github/workflows/zenodo_deposit.sh "$ZENODO_URL" "$ZENODO_TOKEN" "$ZENODO_DEPOSIT_ID"
