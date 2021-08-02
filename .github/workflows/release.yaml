@@ -26,6 +26,24 @@ jobs:
       with:
         name: pdf_document
         path: my_built_document_*.pdf
-  # upload_zenodo:
-  #   runs-on: ubuntu-latest
-  #   needs: build_pdf
+
+#################################################################################
+# A number of variables must be set for the jobs to work. 
+#
+#   - ZENODO_URL:                    - Zenodo URL to deposit release file to.
+#
+#   - ZENODO_TOKEN:                  - Zenodo access token.
+#
+#   - ZENODO_DEPOSIT_ID:             - Deposit ID of previous Zenodo deposit.
+###############################################################################
+
+  upload_zenodo:
+    runs-on: ubuntu-latest
+    needs: build_pdf
+    steps:
+      - name: Deposit
+        env: # Or as an environment variable
+          ZENODO_URL: ${{ secrets.ZENODO_URL }}
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_DEPOSIT_ID: ${{ secrets.ZENODO_DEPOSIT_ID }}
+        run: bash ./.github/workflows/zenodo_deposit.sh "$ZENODO_URL" "$ZENODO_TOKEN" "$ZENODO_DEPOSIT_ID"
