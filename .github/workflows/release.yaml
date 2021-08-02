@@ -12,7 +12,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Requirements
-      run: sudo apt-get install pandoc
+      run: |
+        sudo apt-get install pandoc
+        sudo apt-get install texlive-xetex
     - name: Build
       run: |
         ./.github/workflows/build_document.sh
