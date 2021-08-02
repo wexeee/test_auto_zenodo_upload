@@ -22,7 +22,7 @@ python "$thisdir"/zenodo.py \
        "$zenodo_url" \
        "$zenodo_tkn" \
        "$zenodo_depid" \
-       "$upfile" \
+       $upfile \
        "$metafile" \
        "$version" \
        "$date"
