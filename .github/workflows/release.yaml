@@ -2,6 +2,7 @@ name: Build doc and release
 
 on:
   release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -41,11 +42,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_pdf
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download result for build_pdf
+        uses: actions/download-artifact@v2
+        with:
+          name: pdf_document
       - name: Deposit
         env: # Or as an environment variable
           ZENODO_URL: ${{ secrets.ZENODO_URL }}
           ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
           ZENODO_DEPOSIT_ID: ${{ secrets.ZENODO_DEPOSIT_ID }}
-        run: |
-          pwd
-          bash ./.github/workflows/zenodo_deposit.sh "$ZENODO_URL" "$ZENODO_TOKEN" "$ZENODO_DEPOSIT_ID"
+        run: ./.github/workflows/zenodo_deposit.sh "$ZENODO_URL" "$ZENODO_TOKEN" "$ZENODO_DEPOSIT_ID"
