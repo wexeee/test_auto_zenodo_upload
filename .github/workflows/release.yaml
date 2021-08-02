@@ -12,7 +12,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Requirements
-      run: apt-get install pandoc
+      run: sudo apt-get install pandoc
     - name: Build
       run: |
         ./.github/workflows/build_document.sh
