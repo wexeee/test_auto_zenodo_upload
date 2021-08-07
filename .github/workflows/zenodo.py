@@ -39,9 +39,11 @@ def deposit(zenodo_url, access_token, dep_id, upload_file, meta):
     # Get list of files
     url = '{}/{}/files'.format(urlbase, dep_id)
     r = requests.get(url, params=params)
-    print(f'Existing files: {r}')
+    if r.status_code != 20:
+        raise RuntimeError('GET {} failed: {}'.format(url, r.status_code))
+    print(f'Existing files: {r.json()}')
 
-    for files in r:
+    for files in r.json():
         url = '{}/{}/files/{}'.format(urlbase, dep_id, files['id'])
         r = requests.delete(url, params=params)
 
