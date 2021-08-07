@@ -35,6 +35,14 @@ def deposit(zenodo_url, access_token, dep_id, upload_file, meta):
 
     print("New deposition ID: {}".format(dep_id))
 
+    # Delete previous files (all current)
+    # Get list of files
+    url = '{}/{}/files'.format(urlbase, dep_id)
+    r = requests.get(url, params=params)
+    for files in r:
+        url = '{}/{}/files/{}'.format(urlbase, dep_id, files['id'])
+        r = requests.delete(url, params=params)
+
     # Upload the file
     data   = {'filename': op.basename(upload_file)}
     files  = {'file': open(upload_file, 'rb')}
